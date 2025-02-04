@@ -17,8 +17,9 @@
         function updateParagraph(event) {
             event.preventDefault(); // Prevent the form from submitting
             var userInput = document.getElementById('userInput').value;
-            var message = "Hello " + userInput + ", thank you for visiting my website";
+            var message = "Hello " + userInput + ", thank you for visiting Cool Question Interactive tm";
             document.getElementById('outputParagraph').innerText = message;
+			document.getElementById('coolMessage').style.display = 'none';
             document.getElementById('coolQuestion').style.display = 'block'; // Show the cool question
         }
 
@@ -33,6 +34,9 @@
             var randomMessage = messages[Math.floor(Math.random() * messages.length)];
             document.getElementById('coolMessage').innerText = randomMessage;
             document.getElementById('coolMessage').style.display = 'block';
+			// Hide the confirmMessage and coolQuestion
+			document.getElementById('confirmMessage').style.display = 'none';
+			document.getElementById('coolQuestion').style.display = 'none';
         }
 
         // Function to show confirmation question if 'No' is clicked
@@ -50,6 +54,7 @@
                 document.getElementById('confirmMessage').innerText = "Sike!";
             }, 5000);
 			setTimeout(function() {
+				document.getElementById('confirmMessage').style.display = 'none';
 				showCoolMessage()
             }, 7000);
             
@@ -61,10 +66,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to My Interactive Page</h1>
+        <h1>Welcome to Cool Question Interactive Page</h1>
         <form onsubmit="updateParagraph(event)">
-            <p>Enter a string below, and it will be displayed in the paragraph:</p>
-            <input type="text" id="userInput" name="userInput" placeholder="Enter your string here" required>
+            <p>Enter name as a string:</p>
+            <input type="text" id="userInput" name="userInput" placeholder="Enter your name here" required>
             <button type="submit">Submit</button>
         </form>
         <p id="outputParagraph"></p>
