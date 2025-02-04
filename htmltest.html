@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { color: navy; }
+        p { color: gray; }
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+    </style>
+    <script>
+        // Function to update the paragraph with a personalized message
+        function updateParagraph() {
+            var userInput = document.getElementById('userInput').value;
+            var message = "Hello " + userInput + ", thank you for visiting my website";
+            document.getElementById('outputParagraph').innerText = message;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to My Interactive Page</h1>
+        <p>Enter a string below, and it will be displayed in the paragraph:</p>
+        <input type="text" id="userInput" placeholder="Enter your string here">
+        <button onclick="updateParagraph()">Submit</button>
+        <p id="outputParagraph"></p>
+    </div>
+</body>
