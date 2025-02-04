@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--Cool Question Interactive Document-->
 <html>
 <head>
     <title>Interactive Page</title>
@@ -7,22 +8,81 @@
         h1 { color: navy; }
         p { color: gray; }
         .container { max-width: 600px; margin: auto; padding: 20px; }
+        #coolMessage, #confirmMessage { display: none; color: green; font-weight: bold; }
+        #coolQuestion { display: none; }
+        #confirmQuestion { display: none; }
     </style>
     <script>
         // Function to update the paragraph with a personalized message
-        function updateParagraph() {
+        function updateParagraph(event) {
+            event.preventDefault(); // Prevent the form from submitting
             var userInput = document.getElementById('userInput').value;
             var message = "Hello " + userInput + ", thank you for visiting my website";
             document.getElementById('outputParagraph').innerText = message;
+            document.getElementById('coolQuestion').style.display = 'block'; // Show the cool question
         }
+
+        // Function to show a random cool message if 'Yes' is clicked
+        function showCoolMessage() {
+            var userInput = document.getElementById('userInput').value;
+            var messages = [
+                "You're cool, " + userInput + "!",
+                "You're awesome, " + userInput + "!",
+                "You're cute, " + userInput + "!"
+            ];
+            var randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('coolMessage').innerText = randomMessage;
+            document.getElementById('coolMessage').style.display = 'block';
+        }
+
+        // Function to show confirmation question if 'No' is clicked
+        function showConfirmQuestion() {
+            document.getElementById('confirmQuestion').style.display = 'block';
+            document.getElementById('coolQuestion').style.display = 'none'; // Hide the initial question
+        }
+
+        // Function to handle the 'Yes' response in the confirm question
+        function handleConfirmYes() {
+            document.getElementById('confirmMessage').innerText = "Ok, I respect your decision :(";
+            document.getElementById('confirmMessage').style.display = 'block';
+            document.getElementById('confirmQuestion').style.display = 'none'; // Hide the confirm question
+            setTimeout(function() {
+                document.getElementById('confirmMessage').innerText = "Sike!";
+            }, 5000);
+			setTimeout(function() {
+				showCoolMessage()
+            }, 7000);
+            
+            
+
+        }
+
     </script>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to My Interactive Page</h1>
-        <p>Enter a string below, and it will be displayed in the paragraph:</p>
-        <input type="text" id="userInput" placeholder="Enter your string here">
-        <button onclick="updateParagraph()">Submit</button>
+        <form onsubmit="updateParagraph(event)">
+            <p>Enter a string below, and it will be displayed in the paragraph:</p>
+            <input type="text" id="userInput" name="userInput" placeholder="Enter your string here" required>
+            <button type="submit">Submit</button>
+        </form>
         <p id="outputParagraph"></p>
+
+        <div id="coolQuestion">
+            <p>Do you want to see something cool?</p>
+            <button onclick="showCoolMessage()">Yes</button>
+            <button onclick="showConfirmQuestion()">No</button>
+        </div>
+
+        <div id="confirmQuestion">
+            <p>Are you sure?</p>
+            <button onclick="handleConfirmYes()">Yes</button>
+            <button onclick="showCoolMessage()">No</button>
+        </div>
+
+        <p id="coolMessage"></p>
+        <p id="confirmMessage"></p>
     </div>
 </body>
+</html>
